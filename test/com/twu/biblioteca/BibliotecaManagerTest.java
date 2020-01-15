@@ -15,9 +15,9 @@ public class BibliotecaManagerTest {
 
     @Test
     public void booksStringsShouldBeLikeThePattern() {
-        String booksString = "Book:\tBook 1\n" +
-                "Book:\tBook 2\n" +
-                "Book:\tBook 3\n";
+        String booksString = "Book:\tBook 1\tAuthor:\tAuthor 1\tPublished at:\t1997\n" +
+                "Book:\tBook 2\tAuthor:\tAuthor 1\tPublished at:\t2000\n" +
+                "Book:\tBook 3\tAuthor:\tAuthor 2\tPublished at:\t2012\n";
 
         assertEquals(booksString, bibliotecaManager.getBooksString());
     }
