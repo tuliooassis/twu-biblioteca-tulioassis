@@ -6,5 +6,8 @@ public class BibliotecaApp {
         BibliotecaManager bibliotecaManager = new BibliotecaManager();
 
         System.out.println(bibliotecaManager.getWelcomeMessage());
+
+        System.out.println("-- Library Books --");
+        System.out.print(bibliotecaManager.getBooksString());
     }
 }
