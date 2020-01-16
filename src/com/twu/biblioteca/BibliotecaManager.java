@@ -7,8 +7,8 @@ public class BibliotecaManager {
     private ArrayList<Book> books;
 
     public BibliotecaManager() {
-        BibliotecaDatabase bibliotecaDatabase = new BibliotecaDatabase();
-        this.books = bibliotecaDatabase.getBooks();
+        BooksRepository booksRepository = new BooksRepository();
+        this.books = booksRepository.getBooks();
 
         this.welcomeMessage = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
     }

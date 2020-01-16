@@ -3,10 +3,10 @@ package com.twu.biblioteca;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class BibliotecaDatabase {
+public class BooksRepository {
     private ArrayList<Book> books;
 
-    public BibliotecaDatabase() {
+    public BooksRepository() {
         this.books = new ArrayList<Book>();
 
         this.books.add(new Book("Book 1", "Author 1", 1997));

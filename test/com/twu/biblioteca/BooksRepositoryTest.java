@@ -4,12 +4,12 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class BibliotecaDatabaseTest {
-    BibliotecaDatabase bibliotecaDatabase = new BibliotecaDatabase();
+public class BooksRepositoryTest {
+    BooksRepository booksRepository = new BooksRepository();
 
     @Test
     public void bookListShouldHas3Books() {
         int count = 3;
-        assertEquals(count, bibliotecaDatabase.getBooks().size());
+        assertEquals(count, booksRepository.getBooks().size());
     }
 }
