@@ -1,13 +1,15 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.controller.LibraryController;
+
 public class BibliotecaApp {
 
     public static void main(String[] args) {
-        BibliotecaManager bibliotecaManager = new BibliotecaManager();
+        LibraryController libraryController = new LibraryController();
 
-        System.out.println(bibliotecaManager.getWelcomeMessage());
+        System.out.println(libraryController.getWelcomeMessage());
 
         System.out.println("-- Library Books --");
-        System.out.print(bibliotecaManager.getBooksString());
+        System.out.print(libraryController.getBooksString());
     }
 }

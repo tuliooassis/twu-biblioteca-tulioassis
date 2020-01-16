@@ -1,13 +1,11 @@
-package com.twu.biblioteca;
+package com.twu.biblioteca.model;
 
-import java.util.Date;
-
-public class Book {
+public class BookModel {
     private String name;
     private String author;
     private int publishedYear;
 
-    public Book(String name, String author, int publishedYear) {
+    public BookModel(String name, String author, int publishedYear) {
         this.name = name;
         this.author = author;
         this.publishedYear = publishedYear;

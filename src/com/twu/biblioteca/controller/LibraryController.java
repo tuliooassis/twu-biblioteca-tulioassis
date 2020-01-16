@@ -1,14 +1,17 @@
-package com.twu.biblioteca;
+package com.twu.biblioteca.controller;
+
+import com.twu.biblioteca.model.BookModel;
+import com.twu.biblioteca.repository.BooksRepository;
 
 import java.util.ArrayList;
 
-public class BibliotecaManager {
+public class LibraryController {
     private String welcomeMessage;
-    private ArrayList<Book> books;
+    private ArrayList<BookModel> bookModels;
 
-    public BibliotecaManager() {
+    public LibraryController() {
         BooksRepository booksRepository = new BooksRepository();
-        this.books = booksRepository.getBooks();
+        this.bookModels = booksRepository.getBookModels();
 
         this.welcomeMessage = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
     }
@@ -20,8 +23,8 @@ public class BibliotecaManager {
     public String getBooksString() {
         String booksString = "";
 
-        for (Book book: this.books) {
-            booksString += book.toString() + "\n";
+        for (BookModel bookModel : this.bookModels) {
+            booksString += bookModel.toString() + "\n";
         }
 
         return booksString;
