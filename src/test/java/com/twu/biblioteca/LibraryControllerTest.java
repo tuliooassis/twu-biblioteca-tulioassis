@@ -1,12 +1,15 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.controller.LibraryController;
+import com.twu.biblioteca.repository.BooksRepository;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
 public class LibraryControllerTest {
-    LibraryController libraryController = new LibraryController();
+    // Todo: mock
+    BooksRepository booksRepository = new BooksRepository();
+    LibraryController libraryController = new LibraryController(booksRepository);
 
     @Test
     public void welcomeMessageShouldBeCorrect() {

@@ -11,6 +11,6 @@ public class BooksRepositoryTest {
     @Test
     public void bookListShouldHas3Books() {
         int count = 3;
-        assertEquals(count, booksRepository.getBookModels().size());
+        assertEquals(count, booksRepository.getBooks().size());
     }
 }

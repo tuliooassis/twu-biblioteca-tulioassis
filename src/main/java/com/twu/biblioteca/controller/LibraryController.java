@@ -7,11 +7,10 @@ import java.util.ArrayList;
 
 public class LibraryController {
     private String welcomeMessage;
-    private ArrayList<BookModel> bookModels;
+    private BooksRepository booksRepository;
 
-    public LibraryController() {
-        BooksRepository booksRepository = new BooksRepository();
-        this.bookModels = booksRepository.getBookModels();
+    public LibraryController(BooksRepository booksRepository) {
+        this.booksRepository = booksRepository;
 
         this.welcomeMessage = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
     }
@@ -23,8 +22,8 @@ public class LibraryController {
     public String getBooksString() {
         String booksString = "";
 
-        for (BookModel bookModel : this.bookModels) {
-            booksString += bookModel.toString() + "\n";
+        for (BookModel book : this.booksRepository.getBooks()) {
+            booksString += book.toString() + "\n";
         }
 
         return booksString;
