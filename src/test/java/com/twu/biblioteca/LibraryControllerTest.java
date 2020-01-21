@@ -16,7 +16,7 @@ public class LibraryControllerTest {
     LibraryController libraryController;
 
     @Before
-    public void setupClass() {
+    public void setup() {
         this.mockedBooksRepository = mock(BooksRepository.class);
         this.libraryController = new LibraryController(mockedBooksRepository);
     }
