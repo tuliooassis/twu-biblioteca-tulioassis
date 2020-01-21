@@ -30,6 +30,7 @@ public class LibraryController {
     public void printMenu() {
         System.out.println("-- MENU --");
         System.out.println("(1) List of books");
+        System.out.println("(9) Exit");
     }
 
     public void doAction(int option) throws Exception {
@@ -37,6 +38,9 @@ public class LibraryController {
             case 1:
                 System.out.println("-- Library Books --");
                 System.out.println(this.getBooksString());
+                break;
+            case 9:
+                System.exit(0);
                 break;
             default:
                 throw new Exception("Please select a valid option!");

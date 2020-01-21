@@ -4,6 +4,8 @@ import com.twu.biblioteca.controller.LibraryController;
 import com.twu.biblioteca.repository.BooksRepository;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
 import static org.junit.Assert.assertEquals;
@@ -45,10 +47,17 @@ public class LibraryControllerTest {
     @Test
     public void menuOption1ShouldCallGetBooksString() throws Exception {
         int option = 1;
-        //this.libraryController.doAction(option);
 
         LibraryController libraryControllerSpy = spy(new LibraryController(mock(BooksRepository.class)));
         libraryControllerSpy.doAction(option);
         verify(libraryControllerSpy).getBooksString();
+    }
+
+    @Test
+    public void menuOption9ShouldExitTheApp() throws Exception {
+        int option = 9;
+
+        this.libraryController.doAction(option);
+        assertTrue(false);
     }
 }
