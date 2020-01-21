@@ -1,11 +1,12 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.controller.LibraryController;
+import com.twu.biblioteca.exceptions.ExitException;
+import com.twu.biblioteca.exceptions.InvalidOptionException;
 import com.twu.biblioteca.repository.BooksRepository;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
 import static org.junit.Assert.assertEquals;
@@ -38,7 +39,7 @@ public class LibraryControllerTest {
         this.libraryController.printMenu();
     }
 
-    @Test(expected = Exception.class)
+    @Test(expected = InvalidOptionException.class)
     public void invalidActionShouldThowAException() throws Exception {
         int option = -1;
         this.libraryController.doAction(option);
@@ -53,11 +54,10 @@ public class LibraryControllerTest {
         verify(libraryControllerSpy).getBooksString();
     }
 
-    @Test
-    public void menuOption9ShouldExitTheApp() throws Exception {
+    @Test(expected = ExitException.class)
+    public void menuOption9ShouldThrowExitException() throws Exception {
         int option = 9;
 
         this.libraryController.doAction(option);
-        assertTrue(false);
     }
 }

@@ -1,6 +1,8 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.controller.LibraryController;
+import com.twu.biblioteca.exceptions.ExitException;
+import com.twu.biblioteca.exceptions.InvalidOptionException;
 import com.twu.biblioteca.repository.BooksRepository;
 import java.util.Scanner;
 
@@ -17,8 +19,12 @@ public class BibliotecaApp {
             try {
                 libraryController.doAction(scanner.nextInt());
             }
-            catch (Exception ex) {
-                System.out.println(ex.getMessage());
+            catch (ExitException ex) {
+                System.exit(0);
+            }
+            catch (InvalidOptionException ex) {
+                System.out.println("Please select a valid option!");
+
             }
         }
     }

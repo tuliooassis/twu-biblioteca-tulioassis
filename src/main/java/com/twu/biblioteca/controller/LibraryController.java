@@ -1,5 +1,7 @@
 package com.twu.biblioteca.controller;
 
+import com.twu.biblioteca.exceptions.ExitException;
+import com.twu.biblioteca.exceptions.InvalidOptionException;
 import com.twu.biblioteca.model.BookModel;
 import com.twu.biblioteca.repository.BooksRepository;
 
@@ -33,17 +35,16 @@ public class LibraryController {
         System.out.println("(9) Exit");
     }
 
-    public void doAction(int option) throws Exception {
-        switch (option) {
-            case 1:
-                System.out.println("-- Library Books --");
-                System.out.println(this.getBooksString());
-                break;
-            case 9:
-                System.exit(0);
-                break;
-            default:
-                throw new Exception("Please select a valid option!");
-        }
+    public void doAction(int option) throws InvalidOptionException, ExitException {
+            switch (option) {
+                case 1:
+                    System.out.println("-- Library Books --");
+                    System.out.println(this.getBooksString());
+                    break;
+                case 9:
+                    throw new ExitException();
+                default:
+                    throw new InvalidOptionException();
+            }
     }
 }
