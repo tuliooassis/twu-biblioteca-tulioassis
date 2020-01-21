@@ -2,6 +2,7 @@ package com.twu.biblioteca;
 
 import com.twu.biblioteca.controller.LibraryController;
 import com.twu.biblioteca.repository.BooksRepository;
+import java.util.Scanner;
 
 public class BibliotecaApp {
 
@@ -9,9 +10,16 @@ public class BibliotecaApp {
         BooksRepository booksRepository = new BooksRepository();
         LibraryController libraryController = new LibraryController(booksRepository);
 
-        System.out.println(libraryController.getWelcomeMessage());
+        libraryController.printMenu();
 
-        System.out.println("-- Library Books --");
-        System.out.print(libraryController.getBooksString());
+        Scanner scanner = new Scanner(System.in);
+        while(scanner.hasNext()){
+            try {
+                libraryController.doAction(scanner.nextInt());
+            }
+            catch (Exception ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
     }
 }

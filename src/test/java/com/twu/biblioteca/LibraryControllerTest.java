@@ -4,10 +4,7 @@ import com.twu.biblioteca.controller.LibraryController;
 import com.twu.biblioteca.repository.BooksRepository;
 import org.junit.Before;
 import org.junit.Test;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 import static org.junit.Assert.assertEquals;
 
@@ -32,5 +29,26 @@ public class LibraryControllerTest {
     public void getBooksShouldBeCalled1Time() {
         this.libraryController.getBooksString();
         verify(this.mockedBooksRepository, times(1)).getBooks();
+    }
+
+    @Test
+    public void printMenuShouldExist() {
+        this.libraryController.printMenu();
+    }
+
+    @Test(expected = Exception.class)
+    public void invalidActionShouldThowAException() throws Exception {
+        int option = -1;
+        this.libraryController.doAction(option);
+    }
+
+    @Test
+    public void menuOption1ShouldCallGetBooksString() throws Exception {
+        int option = 1;
+        //this.libraryController.doAction(option);
+
+        LibraryController libraryControllerSpy = spy(new LibraryController(mock(BooksRepository.class)));
+        libraryControllerSpy.doAction(option);
+        verify(libraryControllerSpy).getBooksString();
     }
 }

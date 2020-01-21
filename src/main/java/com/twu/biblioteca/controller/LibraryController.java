@@ -3,8 +3,6 @@ package com.twu.biblioteca.controller;
 import com.twu.biblioteca.model.BookModel;
 import com.twu.biblioteca.repository.BooksRepository;
 
-import java.util.ArrayList;
-
 public class LibraryController {
     private String welcomeMessage;
     private BooksRepository booksRepository;
@@ -27,5 +25,21 @@ public class LibraryController {
         }
 
         return booksString;
+    }
+
+    public void printMenu() {
+        System.out.println("-- MENU --");
+        System.out.println("(1) List of books");
+    }
+
+    public void doAction(int option) throws Exception {
+        switch (option) {
+            case 1:
+                System.out.println("-- Library Books --");
+                System.out.println(this.getBooksString());
+                break;
+            default:
+                throw new Exception("Invalid menu option!");
+        }
     }
 }
