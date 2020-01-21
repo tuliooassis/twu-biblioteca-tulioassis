@@ -5,6 +5,8 @@ import com.twu.biblioteca.exceptions.InvalidOptionException;
 import com.twu.biblioteca.model.BookModel;
 import com.twu.biblioteca.repository.BooksRepository;
 
+import java.util.ArrayList;
+
 public class LibraryController {
     private String welcomeMessage;
     private BooksRepository booksRepository;
@@ -21,8 +23,9 @@ public class LibraryController {
 
     public String getBooksString() {
         String booksString = "";
+        ArrayList<BookModel> books = this.booksRepository.getAvailableBooks();
 
-        for (BookModel book : this.booksRepository.getBooks()) {
+        for (BookModel book : books) {
             booksString += book.toString() + "\n";
         }
 

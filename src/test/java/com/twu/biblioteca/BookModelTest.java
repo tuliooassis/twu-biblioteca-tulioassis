@@ -11,12 +11,12 @@ public class BookModelTest {
 
     @Before
     public void setup() {
-        this.bookModel = new BookModel("Book", "Author", 2020);
+        this.bookModel = new BookModel(1,"Book", "Author", 2020);
     }
 
     @Test
     public void bookStringShouldBeCorrect() {
-        String bookString = "Book:\tBook\tAuthor:\tAuthor\tPublished at:\t2020";
+        String bookString = "(1) Book:\tBook\tAuthor:\tAuthor\tPublished at:\t2020";
         assertEquals(this.bookModel.toString(), bookString);
     }
 

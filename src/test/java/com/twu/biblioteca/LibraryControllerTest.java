@@ -31,7 +31,7 @@ public class LibraryControllerTest {
     @Test
     public void getBooksShouldBeCalled1Time() {
         this.libraryController.getBooksString();
-        verify(this.mockedBooksRepository, times(1)).getBooks();
+        verify(this.mockedBooksRepository, times(1)).getAvailableBooks();
     }
 
     @Test
