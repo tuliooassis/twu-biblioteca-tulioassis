@@ -39,7 +39,7 @@ public class LibraryController {
                 System.out.println(this.getBooksString());
                 break;
             default:
-                throw new Exception("Invalid menu option!");
+                throw new Exception("Please select a valid option!");
         }
     }
 }
