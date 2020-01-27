@@ -60,4 +60,9 @@ public class LibraryControllerTest {
 
         this.libraryController.doAction(option);
     }
+
+    @Test
+    public void menuOption2ShouldRequestABookNumber() {
+        
+    }
 }

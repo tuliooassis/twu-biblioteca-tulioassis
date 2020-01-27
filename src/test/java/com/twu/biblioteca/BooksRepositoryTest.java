@@ -13,4 +13,15 @@ public class BooksRepositoryTest {
         int count = 3;
         assertEquals(count, booksRepository.getBooks().size());
     }
+
+    @Test
+    public void bookAvailableListShouldHas2Books() {
+        int count = 2;
+        assertEquals(count, booksRepository.getAvailableBooks().size());
+    }
+
+    @Test
+    public void bookShouldBeChecked() {
+        int bookId = 2;
+    }
 }

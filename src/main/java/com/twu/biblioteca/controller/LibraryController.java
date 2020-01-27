@@ -35,6 +35,7 @@ public class LibraryController {
     public void printMenu() {
         System.out.println("-- MENU --");
         System.out.println("(1) List of books");
+        System.out.println("(2) Checkout a book");
         System.out.println("(9) Exit");
     }
 
@@ -43,6 +44,8 @@ public class LibraryController {
                 case 1:
                     System.out.println("-- Library Books --");
                     System.out.println(this.getBooksString());
+                    break;
+                case 2:
                     break;
                 case 9:
                     throw new ExitException();
