@@ -11,11 +11,7 @@ public class BooksRepository {
         this.books = new ArrayList<BookModel>();
 
         this.books.add(new BookModel(1,"Book 1", "Author 1", 1997));
-
-        BookModel book = new BookModel(3, "Book 3", "Author 2", 2012);
-        book.checkout();
-        this.books.add(book);
-
+        this.books.add(new BookModel(3, "Book 3", "Author 2", 2012, true));
         this.books.add(new BookModel(2,"Book 2", "Author 1", 2000));
     }
 
@@ -33,4 +29,17 @@ public class BooksRepository {
 
         return availableBooks;
     }
+
+
+    public BookModel getBookById(int bookId) {
+        BookModel book = new BookModel(1,"Book 1", "Author 1", 1997);
+
+        for (BookModel b : this.books){
+            if (b.getId() == bookId)
+                book = b;
+        }
+
+        return book;
+    }
+
 }

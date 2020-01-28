@@ -6,6 +6,7 @@ import com.twu.biblioteca.model.BookModel;
 import com.twu.biblioteca.repository.BooksRepository;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class LibraryController {
     private String welcomeMessage;
@@ -32,8 +33,16 @@ public class LibraryController {
         return booksString;
     }
 
+    public void checkoutBook(int bookId){
+        BookModel bookRecovered = this.booksRepository.getBookById(bookId);
+        int indexOfBook = this.booksRepository.getAvailableBooks().indexOf(bookRecovered);
+
+        if(indexOfBook != -1)
+            this.booksRepository.getAvailableBooks().get(indexOfBook).checkout();
+    }
+
     public void printMenu() {
-        System.out.println("-- MENU --");
+        System.out.println("\n\n------ MENU ------");
         System.out.println("(1) List of books");
         System.out.println("(2) Checkout a book");
         System.out.println("(9) Exit");
@@ -46,6 +55,10 @@ public class LibraryController {
                     System.out.println(this.getBooksString());
                     break;
                 case 2:
+                    this.doAction(1);
+                    Scanner scanner = new Scanner(System.in);
+                    System.out.println("Enter one book code to checkout: ");
+                    this.checkoutBook(scanner.nextInt());
                     break;
                 case 9:
                     throw new ExitException();

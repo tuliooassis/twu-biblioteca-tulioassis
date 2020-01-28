@@ -18,6 +18,8 @@ public class BibliotecaApp {
         while(scanner.hasNext()){
             try {
                 libraryController.doAction(scanner.nextInt());
+
+                libraryController.printMenu();
             }
             catch (ExitException ex) {
                 System.exit(0);
