@@ -33,12 +33,15 @@ public class LibraryController {
         return booksString;
     }
 
-    public void checkoutBook(int bookId){
+    public boolean checkoutBook(int bookId){
         BookModel bookRecovered = this.booksRepository.getBookById(bookId);
         int indexOfBook = this.booksRepository.getAvailableBooks().indexOf(bookRecovered);
 
-        if(indexOfBook != -1)
+        if(indexOfBook != -1){
             this.booksRepository.getAvailableBooks().get(indexOfBook).checkout();
+            return true;
+        }
+        return false;
     }
 
     public void printMenu() {
@@ -58,7 +61,12 @@ public class LibraryController {
                     this.doAction(1);
                     Scanner scanner = new Scanner(System.in);
                     System.out.println("Enter one book code to checkout: ");
-                    this.checkoutBook(scanner.nextInt());
+
+                    boolean success = this.checkoutBook(scanner.nextInt());
+                    if (success) {
+                        System.out.println("Thank you! Enjoy the book!");
+                    }
+
                     break;
                 case 9:
                     throw new ExitException();

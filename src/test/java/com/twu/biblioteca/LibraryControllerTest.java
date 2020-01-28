@@ -86,7 +86,7 @@ public class LibraryControllerTest {
     }
 
     @Test
-    public void checkoutBookShouldCallGetAvailableBooksTwiceIfTheIdExists() {
+    public void checkoutBookShouldCallGetAvailableBooksTwiceIfTheIdExistsAndReturnTrue() {
         int bookId = 1;
 
         BookModel book = new BookModel(1, "Book 1", "Author 1", 1992);
@@ -94,7 +94,7 @@ public class LibraryControllerTest {
         when(this.mockedBooksRepository.getBookById(eq(bookId))).thenReturn(book);
         when(this.mockedBooksRepository.getAvailableBooks()).thenReturn(new ArrayList<BookModel>(Arrays.asList(book)));
 
-        this.libraryController.checkoutBook(bookId);
+        assertEquals(this.libraryController.checkoutBook(bookId), true);
         verify(this.mockedBooksRepository, times(2)).getAvailableBooks();
     }
 
@@ -107,7 +107,7 @@ public class LibraryControllerTest {
         when(this.mockedBooksRepository.getBookById(eq(bookId))).thenReturn(book);
         when(this.mockedBooksRepository.getAvailableBooks()).thenReturn(new ArrayList<BookModel>());
 
-        this.libraryController.checkoutBook(bookId);
+        assertEquals(this.libraryController.checkoutBook(bookId), false);
         verify(this.mockedBooksRepository, times(1)).getAvailableBooks();
 
     }
