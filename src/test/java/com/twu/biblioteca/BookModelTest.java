@@ -30,4 +30,10 @@ public class BookModelTest {
         this.bookModel.checkout();
         assertTrue(this.bookModel.isChecked());
     }
+
+    @Test
+    public void bookShouldBeReturned() {
+        this.bookModel.checkin();
+        assertFalse(this.bookModel.isChecked());
+    }
 }

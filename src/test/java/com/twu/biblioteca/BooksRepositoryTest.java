@@ -22,11 +22,6 @@ public class BooksRepositoryTest {
     }
 
     @Test
-    public void bookShouldBeChecked() {
-        int bookId = 2;
-    }
-
-    @Test
     public void bookShouldBeRecoveredById() {
         BookModel book = new BookModel(2,"Book 2", "Author 1", 2000);
         BookModel bookRecovered = this.booksRepository.getBookById(2);

@@ -44,14 +44,21 @@ public class LibraryController {
         return false;
     }
 
+    public void checkinBook(int bookId) {
+        BookModel bookRecovered = this.booksRepository.getBookById(bookId);
+        bookRecovered.checkin();
+    }
+
     public void printMenu() {
         System.out.println("\n\n------ MENU ------");
         System.out.println("(1) List of books");
         System.out.println("(2) Checkout a book");
+        System.out.println("(3) Return a book");
         System.out.println("(9) Exit");
     }
 
     public void doAction(int option) throws InvalidOptionException, ExitException {
+            Scanner scanner = new Scanner(System.in);
             switch (option) {
                 case 1:
                     System.out.println("-- Library Books --");
@@ -59,7 +66,6 @@ public class LibraryController {
                     break;
                 case 2:
                     this.doAction(1);
-                    Scanner scanner = new Scanner(System.in);
                     System.out.println("Enter one book code to checkout: ");
 
                     boolean success = this.checkoutBook(scanner.nextInt());
@@ -70,6 +76,9 @@ public class LibraryController {
                         System.out.println("Sorry, that book is not available");
                     }
                     break;
+                case 3:
+                    System.out.println("Enter one book code to return: ");
+                    this.checkinBook(scanner.nextInt());
                     break;
                 case 9:
                     throw new ExitException();

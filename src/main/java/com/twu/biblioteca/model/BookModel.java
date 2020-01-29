@@ -29,6 +29,10 @@ public class BookModel {
         this.checked = true;
     }
 
+    public void checkin() {
+        this.checked = false;
+    }
+
     public boolean isChecked() {
         return this.checked;
     }

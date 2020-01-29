@@ -109,6 +109,16 @@ public class LibraryControllerTest {
 
         assertEquals(this.libraryController.checkoutBook(bookId), false);
         verify(this.mockedBooksRepository, times(1)).getAvailableBooks();
+    }
 
+    @Test
+    public void checkinBookShouldReturnABook() {
+        int bookId = 3;
+        BookModel book = new BookModel(3, "Book 3", "Author 3", 1992, true);
+
+        when(this.mockedBooksRepository.getBookById(eq(bookId))).thenReturn(book);
+        this.libraryController.checkinBook(bookId);
+
+        assertEquals(book.isChecked(), false);
     }
 }
