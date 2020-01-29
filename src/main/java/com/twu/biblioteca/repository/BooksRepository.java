@@ -32,7 +32,7 @@ public class BooksRepository {
 
 
     public BookModel getBookById(int bookId) {
-        BookModel book = new BookModel(1,"Book 1", "Author 1", 1997);
+        BookModel book = null;
 
         for (BookModel b : this.books){
             if (b.getId() == bookId)

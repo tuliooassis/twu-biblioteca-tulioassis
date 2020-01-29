@@ -8,17 +8,13 @@ import com.twu.biblioteca.repository.BooksRepository;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.awt.print.Book;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
 
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
-
-import static org.junit.Assert.assertEquals;
 
 
 public class LibraryControllerTest {
@@ -94,12 +90,12 @@ public class LibraryControllerTest {
         when(this.mockedBooksRepository.getBookById(eq(bookId))).thenReturn(book);
         when(this.mockedBooksRepository.getAvailableBooks()).thenReturn(new ArrayList<BookModel>(Arrays.asList(book)));
 
-        assertEquals(this.libraryController.checkoutBook(bookId), true);
+        assertTrue(this.libraryController.checkoutBook(bookId));
         verify(this.mockedBooksRepository, times(2)).getAvailableBooks();
     }
 
     @Test
-    public void checkoutBookShouldCallGetAvailableBooksOneTimeIfItIsNotAvailable() {
+    public void checkoutBookShouldCallGetAvailableBooksOneTimeIfItIsNotAvailableAndReturnFalse() {
         int bookId = 1;
 
         BookModel book = new BookModel(1, "Book 1", "Author 1", 1992);
@@ -107,7 +103,7 @@ public class LibraryControllerTest {
         when(this.mockedBooksRepository.getBookById(eq(bookId))).thenReturn(book);
         when(this.mockedBooksRepository.getAvailableBooks()).thenReturn(new ArrayList<BookModel>());
 
-        assertEquals(this.libraryController.checkoutBook(bookId), false);
+        assertFalse(this.libraryController.checkoutBook(bookId));
         verify(this.mockedBooksRepository, times(1)).getAvailableBooks();
     }
 
@@ -121,4 +117,39 @@ public class LibraryControllerTest {
 
         assertEquals(book.isChecked(), false);
     }
+
+    @Test
+    public void checkinWithValidBookIdShouldReturnTrue() {
+        int bookId = 3;
+        BookModel book = new BookModel(3, "Book 3", "Author 3", 1992, true);
+
+        when(this.mockedBooksRepository.getBookById(eq(bookId))).thenReturn(book);
+        when(this.mockedBooksRepository.getAvailableBooks()).thenReturn(new ArrayList<BookModel>());
+
+        assertTrue(this.libraryController.checkinBook(bookId));
+    }
+
+    @Test
+    public void checkinWithAlreadyAvailableBookShouldReturnFalse() {
+        int bookId = 3;
+        BookModel book = new BookModel(3, "Book 3", "Author 3", 1992, true);
+
+        when(this.mockedBooksRepository.getBookById(eq(bookId))).thenReturn(book);
+        when(this.mockedBooksRepository.getAvailableBooks()).thenReturn(new ArrayList<BookModel>(Arrays.asList(book)));
+
+        assertFalse(this.libraryController.checkinBook(bookId));
+    }
+
+    @Test
+    public void checkinWithInvalidBookIdShouldReturnFalse() {
+        int bookId = 9;
+        BookModel book = new BookModel(3, "Book 3", "Author 3", 1992, true);
+
+        when(this.mockedBooksRepository.getBookById(eq(bookId))).thenReturn(null);
+        when(this.mockedBooksRepository.getAvailableBooks()).thenReturn(new ArrayList<BookModel>(Arrays.asList(book)));
+
+        assertFalse(this.libraryController.checkinBook(bookId));
+
+    }
+
 }

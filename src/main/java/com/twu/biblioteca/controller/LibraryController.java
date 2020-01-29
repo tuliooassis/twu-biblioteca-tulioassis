@@ -44,9 +44,14 @@ public class LibraryController {
         return false;
     }
 
-    public void checkinBook(int bookId) {
+    public boolean checkinBook(int bookId) {
         BookModel bookRecovered = this.booksRepository.getBookById(bookId);
-        bookRecovered.checkin();
+
+        if(bookRecovered != null && !this.booksRepository.getAvailableBooks().contains(bookRecovered)){
+            bookRecovered.checkin();
+            return true;
+        }
+        return false;
     }
 
     public void printMenu() {
@@ -59,6 +64,8 @@ public class LibraryController {
 
     public void doAction(int option) throws InvalidOptionException, ExitException {
             Scanner scanner = new Scanner(System.in);
+            boolean success;
+
             switch (option) {
                 case 1:
                     System.out.println("-- Library Books --");
@@ -68,17 +75,24 @@ public class LibraryController {
                     this.doAction(1);
                     System.out.println("Enter one book code to checkout: ");
 
-                    boolean success = this.checkoutBook(scanner.nextInt());
+                    success = this.checkoutBook(scanner.nextInt());
                     if (success) {
                         System.out.println("Thank you! Enjoy the book!");
                     }
                     else {
-                        System.out.println("Sorry, that book is not available");
+                        System.out.println("Sorry, that book is not available.");
                     }
                     break;
                 case 3:
                     System.out.println("Enter one book code to return: ");
-                    this.checkinBook(scanner.nextInt());
+                    success = this.checkinBook(scanner.nextInt());
+
+                    if (success) {
+                        System.out.println("Thank you for returning the book.");
+                    }
+                    else {
+                        System.out.println("That is not a valid book to return.");
+                    }
                     break;
                 case 9:
                     throw new ExitException();
