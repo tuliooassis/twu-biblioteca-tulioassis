@@ -1,26 +1,26 @@
 package com.twu.biblioteca.repository;
 
-import com.twu.biblioteca.model.BookModel;
+import com.twu.biblioteca.model.Book;
 
 import java.util.ArrayList;
 
 public class BooksRepository {
-    private ArrayList<BookModel> books;
+    private ArrayList<Book> books;
 
     public BooksRepository() {
-        this.books = new ArrayList<BookModel>();
+        this.books = new ArrayList<Book>();
 
-        this.books.add(new BookModel(1,"Book 1", "Author 1", 1997));
-        this.books.add(new BookModel(3, "Book 3", "Author 2", 2012, true));
-        this.books.add(new BookModel(2,"Book 2", "Author 1", 2000));
+        this.books.add(new Book(1,"Book 1", "Author 1", 1997));
+        this.books.add(new Book(3, "Book 3", "Author 2", 2012, true));
+        this.books.add(new Book(2,"Book 2", "Author 1", 2000));
     }
 
-    public ArrayList<BookModel> getBooks() {
+    public ArrayList<Book> getBooks() {
         return this.books;
     }
 
-    public ArrayList<BookModel> getAvailableBooks() {
-        ArrayList<BookModel> availableBooks = new ArrayList<>();
+    public ArrayList<Book> getAvailableBooks() {
+        ArrayList<Book> availableBooks = new ArrayList<>();
 
         this.books.forEach((book -> {
             if (!book.isChecked())
@@ -31,10 +31,10 @@ public class BooksRepository {
     }
 
 
-    public BookModel getBookById(int bookId) {
-        BookModel book = null;
+    public Book getBookById(int bookId) {
+        Book book = null;
 
-        for (BookModel b : this.books){
+        for (Book b : this.books){
             if (b.getId() == bookId)
                 book = b;
         }

@@ -1,9 +1,8 @@
-package com.twu.biblioteca;
+package com.twu.biblioteca.controller;
 
-import com.twu.biblioteca.controller.LibraryController;
 import com.twu.biblioteca.exceptions.ExitException;
 import com.twu.biblioteca.exceptions.InvalidOptionException;
-import com.twu.biblioteca.model.BookModel;
+import com.twu.biblioteca.model.Book;
 import com.twu.biblioteca.repository.BooksRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -85,10 +84,10 @@ public class LibraryControllerTest {
     public void checkoutBookShouldCallGetAvailableBooksTwiceIfTheIdExistsAndReturnTrue() {
         int bookId = 1;
 
-        BookModel book = new BookModel(1, "Book 1", "Author 1", 1992);
+        Book book = new Book(1, "Book 1", "Author 1", 1992);
 
         when(this.mockedBooksRepository.getBookById(eq(bookId))).thenReturn(book);
-        when(this.mockedBooksRepository.getAvailableBooks()).thenReturn(new ArrayList<BookModel>(Arrays.asList(book)));
+        when(this.mockedBooksRepository.getAvailableBooks()).thenReturn(new ArrayList<Book>(Arrays.asList(book)));
 
         assertTrue(this.libraryController.checkoutBook(bookId));
         verify(this.mockedBooksRepository, times(2)).getAvailableBooks();
@@ -98,10 +97,10 @@ public class LibraryControllerTest {
     public void checkoutBookShouldCallGetAvailableBooksOneTimeIfItIsNotAvailableAndReturnFalse() {
         int bookId = 1;
 
-        BookModel book = new BookModel(1, "Book 1", "Author 1", 1992);
+        Book book = new Book(1, "Book 1", "Author 1", 1992);
 
         when(this.mockedBooksRepository.getBookById(eq(bookId))).thenReturn(book);
-        when(this.mockedBooksRepository.getAvailableBooks()).thenReturn(new ArrayList<BookModel>());
+        when(this.mockedBooksRepository.getAvailableBooks()).thenReturn(new ArrayList<Book>());
 
         assertFalse(this.libraryController.checkoutBook(bookId));
         verify(this.mockedBooksRepository, times(1)).getAvailableBooks();
@@ -110,7 +109,7 @@ public class LibraryControllerTest {
     @Test
     public void checkinBookShouldReturnABook() {
         int bookId = 3;
-        BookModel book = new BookModel(3, "Book 3", "Author 3", 1992, true);
+        Book book = new Book(3, "Book 3", "Author 3", 1992, true);
 
         when(this.mockedBooksRepository.getBookById(eq(bookId))).thenReturn(book);
         this.libraryController.checkinBook(bookId);
@@ -121,10 +120,10 @@ public class LibraryControllerTest {
     @Test
     public void checkinWithValidBookIdShouldReturnTrue() {
         int bookId = 3;
-        BookModel book = new BookModel(3, "Book 3", "Author 3", 1992, true);
+        Book book = new Book(3, "Book 3", "Author 3", 1992, true);
 
         when(this.mockedBooksRepository.getBookById(eq(bookId))).thenReturn(book);
-        when(this.mockedBooksRepository.getAvailableBooks()).thenReturn(new ArrayList<BookModel>());
+        when(this.mockedBooksRepository.getAvailableBooks()).thenReturn(new ArrayList<Book>());
 
         assertTrue(this.libraryController.checkinBook(bookId));
     }
@@ -132,10 +131,10 @@ public class LibraryControllerTest {
     @Test
     public void checkinWithAlreadyAvailableBookShouldReturnFalse() {
         int bookId = 3;
-        BookModel book = new BookModel(3, "Book 3", "Author 3", 1992, true);
+        Book book = new Book(3, "Book 3", "Author 3", 1992, true);
 
         when(this.mockedBooksRepository.getBookById(eq(bookId))).thenReturn(book);
-        when(this.mockedBooksRepository.getAvailableBooks()).thenReturn(new ArrayList<BookModel>(Arrays.asList(book)));
+        when(this.mockedBooksRepository.getAvailableBooks()).thenReturn(new ArrayList<Book>(Arrays.asList(book)));
 
         assertFalse(this.libraryController.checkinBook(bookId));
     }
@@ -143,10 +142,10 @@ public class LibraryControllerTest {
     @Test
     public void checkinWithInvalidBookIdShouldReturnFalse() {
         int bookId = 9;
-        BookModel book = new BookModel(3, "Book 3", "Author 3", 1992, true);
+        Book book = new Book(3, "Book 3", "Author 3", 1992, true);
 
         when(this.mockedBooksRepository.getBookById(eq(bookId))).thenReturn(null);
-        when(this.mockedBooksRepository.getAvailableBooks()).thenReturn(new ArrayList<BookModel>(Arrays.asList(book)));
+        when(this.mockedBooksRepository.getAvailableBooks()).thenReturn(new ArrayList<Book>(Arrays.asList(book)));
 
         assertFalse(this.libraryController.checkinBook(bookId));
 

@@ -2,7 +2,7 @@ package com.twu.biblioteca.controller;
 
 import com.twu.biblioteca.exceptions.ExitException;
 import com.twu.biblioteca.exceptions.InvalidOptionException;
-import com.twu.biblioteca.model.BookModel;
+import com.twu.biblioteca.model.Book;
 import com.twu.biblioteca.repository.BooksRepository;
 
 import java.util.ArrayList;
@@ -24,9 +24,9 @@ public class LibraryController {
 
     public String getBooksString() {
         String booksString = "";
-        ArrayList<BookModel> books = this.booksRepository.getAvailableBooks();
+        ArrayList<Book> books = this.booksRepository.getAvailableBooks();
 
-        for (BookModel book : books) {
+        for (Book book : books) {
             booksString += book.toString() + "\n";
         }
 
@@ -34,7 +34,7 @@ public class LibraryController {
     }
 
     public boolean checkoutBook(int bookId){
-        BookModel bookRecovered = this.booksRepository.getBookById(bookId);
+        Book bookRecovered = this.booksRepository.getBookById(bookId);
         int indexOfBook = this.booksRepository.getAvailableBooks().indexOf(bookRecovered);
 
         if(indexOfBook != -1){
@@ -45,7 +45,7 @@ public class LibraryController {
     }
 
     public boolean checkinBook(int bookId) {
-        BookModel bookRecovered = this.booksRepository.getBookById(bookId);
+        Book bookRecovered = this.booksRepository.getBookById(bookId);
 
         if(bookRecovered != null && !this.booksRepository.getAvailableBooks().contains(bookRecovered)){
             bookRecovered.checkin();

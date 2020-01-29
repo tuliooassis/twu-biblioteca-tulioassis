@@ -1,7 +1,6 @@
-package com.twu.biblioteca;
+package com.twu.biblioteca.repository;
 
-import com.twu.biblioteca.model.BookModel;
-import com.twu.biblioteca.repository.BooksRepository;
+import com.twu.biblioteca.model.Book;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -23,8 +22,8 @@ public class BooksRepositoryTest {
 
     @Test
     public void bookShouldBeRecoveredById() {
-        BookModel book = new BookModel(2,"Book 2", "Author 1", 2000);
-        BookModel bookRecovered = this.booksRepository.getBookById(2);
+        Book book = new Book(2,"Book 2", "Author 1", 2000);
+        Book bookRecovered = this.booksRepository.getBookById(2);
         assertEquals(book, bookRecovered);
     }
 }
