@@ -1,8 +1,10 @@
 package com.twu.biblioteca.repository;
 
+import com.twu.biblioteca.exceptions.BookNotFoundException;
 import com.twu.biblioteca.model.Book;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class BooksRepository {
     private ArrayList<Book> books;
@@ -20,26 +22,17 @@ public class BooksRepository {
     }
 
     public ArrayList<Book> getAvailableBooks() {
-        ArrayList<Book> availableBooks = new ArrayList<>();
-
-        this.books.forEach((book -> {
-            if (!book.isChecked())
-                availableBooks.add(book);
-        }));
-
-        return availableBooks;
+        return this.books.stream()
+                .filter(b -> !b.isChecked())
+                .collect(Collectors
+                .toCollection(ArrayList::new));
     }
 
-
-    public Book getBookById(int bookId) {
-        Book book = null;
-
-        for (Book b : this.books){
-            if (b.getId() == bookId)
-                book = b;
-        }
-
-        return book;
+    public Book getBookById(int bookId) throws BookNotFoundException {
+        return this.books.stream()
+                .filter(b -> b.getId() == bookId)
+                .findAny()
+                .orElseThrow(() -> new BookNotFoundException());
     }
 
 }

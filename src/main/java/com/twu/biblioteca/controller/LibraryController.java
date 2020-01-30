@@ -1,5 +1,6 @@
 package com.twu.biblioteca.controller;
 
+import com.twu.biblioteca.exceptions.BookNotFoundException;
 import com.twu.biblioteca.exceptions.ExitException;
 import com.twu.biblioteca.exceptions.InvalidOptionException;
 import com.twu.biblioteca.model.Book;
@@ -34,24 +35,33 @@ public class LibraryController {
     }
 
     public boolean checkoutBook(int bookId){
-        Book bookRecovered = this.booksRepository.getBookById(bookId);
-        int indexOfBook = this.booksRepository.getAvailableBooks().indexOf(bookRecovered);
+        try {
+            Book book = this.booksRepository.getBookById(bookId);
 
-        if(indexOfBook != -1){
-            this.booksRepository.getAvailableBooks().get(indexOfBook).checkout();
-            return true;
+            if(!book.isChecked()){
+                book.checkout();
+                return true;
+            }
+            return false;
         }
-        return false;
+        catch (BookNotFoundException ex) {
+            return false;
+        }
     }
 
     public boolean checkinBook(int bookId) {
-        Book bookRecovered = this.booksRepository.getBookById(bookId);
+        try {
+            Book book = this.booksRepository.getBookById(bookId);
 
-        if(bookRecovered != null && !this.booksRepository.getAvailableBooks().contains(bookRecovered)){
-            bookRecovered.checkin();
-            return true;
+            if(book.isChecked()){
+                book.checkin();
+                return true;
+            }
+            return false;
         }
-        return false;
+        catch (BookNotFoundException ex) {
+            return false;
+        }
     }
 
     public void printMenu() {

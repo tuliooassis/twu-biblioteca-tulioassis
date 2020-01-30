@@ -1,5 +1,6 @@
 package com.twu.biblioteca.repository;
 
+import com.twu.biblioteca.exceptions.BookNotFoundException;
 import com.twu.biblioteca.model.Book;
 import org.junit.Test;
 
@@ -21,9 +22,14 @@ public class BooksRepositoryTest {
     }
 
     @Test
-    public void bookShouldBeRecoveredById() {
+    public void bookShouldBeRecoveredById() throws BookNotFoundException {
         Book book = new Book(2,"Book 2", "Author 1", 2000);
         Book bookRecovered = this.booksRepository.getBookById(2);
         assertEquals(book, bookRecovered);
+    }
+
+    @Test(expected = BookNotFoundException.class)
+    public void getBookIdShouldThrowABookNotFoundExceptionIfTheBookDoesNotExists() throws BookNotFoundException {
+        this.booksRepository.getBookById(9);
     }
 }
