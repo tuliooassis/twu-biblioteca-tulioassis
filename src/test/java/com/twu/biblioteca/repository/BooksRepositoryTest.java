@@ -1,6 +1,6 @@
 package com.twu.biblioteca.repository;
 
-import com.twu.biblioteca.exceptions.BookNotFoundException;
+import com.twu.biblioteca.exceptions.NotFoundException;
 import com.twu.biblioteca.model.Book;
 import org.junit.Test;
 
@@ -12,24 +12,24 @@ public class BooksRepositoryTest {
     @Test
     public void bookListShouldHas3Books() {
         int count = 3;
-        assertEquals(count, booksRepository.getBooks().size());
+        assertEquals(count, booksRepository.getAll().size());
     }
 
     @Test
     public void bookAvailableListShouldHas2Books() {
         int count = 2;
-        assertEquals(count, booksRepository.getAvailableBooks().size());
+        assertEquals(count, booksRepository.getAvailableList().size());
     }
 
     @Test
-    public void bookShouldBeRecoveredById() throws BookNotFoundException {
+    public void bookShouldBeRecoveredById() throws NotFoundException {
         Book book = new Book(2,"Book 2", "Author 1", 2000);
-        Book bookRecovered = this.booksRepository.getBookById(2);
+        Book bookRecovered = this.booksRepository.find(2);
         assertEquals(book, bookRecovered);
     }
 
-    @Test(expected = BookNotFoundException.class)
-    public void getBookIdShouldThrowABookNotFoundExceptionIfTheBookDoesNotExists() throws BookNotFoundException {
-        this.booksRepository.getBookById(9);
+    @Test(expected = NotFoundException.class)
+    public void getBookIdShouldThrowABookNotFoundExceptionIfTheBookDoesNotExists() throws NotFoundException {
+        this.booksRepository.find(9);
     }
 }

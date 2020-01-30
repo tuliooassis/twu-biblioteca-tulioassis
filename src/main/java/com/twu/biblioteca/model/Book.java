@@ -2,7 +2,7 @@ package com.twu.biblioteca.model;
 
 import java.util.Objects;
 
-public class Book {
+public class Book implements ILibraryItem{
     private int id;
     private String name;
     private String author;
@@ -25,20 +25,23 @@ public class Book {
         this.checked = checked;
     }
 
+    public int getId() {
+        return this.id;
+    }
+
+    @Override
     public void checkout() {
         this.checked = true;
     }
 
+    @Override
     public void checkin() {
         this.checked = false;
     }
 
+    @Override
     public boolean isChecked() {
         return this.checked;
-    }
-
-    public int getId() {
-        return this.id;
     }
 
     @Override

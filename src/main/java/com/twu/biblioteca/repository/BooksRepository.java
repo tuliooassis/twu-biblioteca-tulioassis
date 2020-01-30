@@ -1,12 +1,12 @@
 package com.twu.biblioteca.repository;
 
-import com.twu.biblioteca.exceptions.BookNotFoundException;
+import com.twu.biblioteca.exceptions.NotFoundException;
 import com.twu.biblioteca.model.Book;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
-public class BooksRepository {
+public class BooksRepository implements IRepository {
     private ArrayList<Book> books;
 
     public BooksRepository() {
@@ -17,22 +17,24 @@ public class BooksRepository {
         this.books.add(new Book(2,"Book 2", "Author 1", 2000));
     }
 
-    public ArrayList<Book> getBooks() {
+    @Override
+    public ArrayList getAll() {
         return this.books;
     }
 
-    public ArrayList<Book> getAvailableBooks() {
+    @Override
+    public ArrayList getAvailableList() {
         return this.books.stream()
                 .filter(b -> !b.isChecked())
                 .collect(Collectors
                 .toCollection(ArrayList::new));
     }
 
-    public Book getBookById(int bookId) throws BookNotFoundException {
+    @Override
+    public Book find(int id) throws NotFoundException {
         return this.books.stream()
-                .filter(b -> b.getId() == bookId)
+                .filter(b -> b.getId() == id)
                 .findAny()
-                .orElseThrow(() -> new BookNotFoundException());
+                .orElseThrow(() -> new NotFoundException());
     }
-
 }

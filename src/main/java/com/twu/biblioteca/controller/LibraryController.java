@@ -1,6 +1,6 @@
 package com.twu.biblioteca.controller;
 
-import com.twu.biblioteca.exceptions.BookNotFoundException;
+import com.twu.biblioteca.exceptions.NotFoundException;
 import com.twu.biblioteca.exceptions.ExitException;
 import com.twu.biblioteca.exceptions.InvalidOptionException;
 import com.twu.biblioteca.model.Book;
@@ -25,7 +25,7 @@ public class LibraryController {
 
     public String getBooksString() {
         String booksString = "";
-        ArrayList<Book> books = this.booksRepository.getAvailableBooks();
+        ArrayList<Book> books = this.booksRepository.getAvailableList();
 
         for (Book book : books) {
             booksString += book.toString() + "\n";
@@ -36,7 +36,7 @@ public class LibraryController {
 
     public boolean checkoutBook(int bookId){
         try {
-            Book book = this.booksRepository.getBookById(bookId);
+            Book book = this.booksRepository.find(bookId);
 
             if(!book.isChecked()){
                 book.checkout();
@@ -44,14 +44,14 @@ public class LibraryController {
             }
             return false;
         }
-        catch (BookNotFoundException ex) {
+        catch (NotFoundException ex) {
             return false;
         }
     }
 
     public boolean checkinBook(int bookId) {
         try {
-            Book book = this.booksRepository.getBookById(bookId);
+            Book book = this.booksRepository.find(bookId);
 
             if(book.isChecked()){
                 book.checkin();
@@ -59,7 +59,7 @@ public class LibraryController {
             }
             return false;
         }
-        catch (BookNotFoundException ex) {
+        catch (NotFoundException ex) {
             return false;
         }
     }
@@ -78,14 +78,12 @@ public class LibraryController {
 
             switch (option) {
                 case 1:
-                    System.out.println("-- Library Books --");
                     System.out.println(this.getBooksString());
                     break;
                 case 2:
-                    this.doAction(1);
                     System.out.println("Enter one book code to checkout: ");
-
                     success = this.checkoutBook(scanner.nextInt());
+
                     if (success) {
                         System.out.println("Thank you! Enjoy the book!");
                     }

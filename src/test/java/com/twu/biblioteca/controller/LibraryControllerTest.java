@@ -1,6 +1,6 @@
 package com.twu.biblioteca.controller;
 
-import com.twu.biblioteca.exceptions.BookNotFoundException;
+import com.twu.biblioteca.exceptions.NotFoundException;
 import com.twu.biblioteca.exceptions.ExitException;
 import com.twu.biblioteca.exceptions.InvalidOptionException;
 import com.twu.biblioteca.model.Book;
@@ -33,7 +33,7 @@ public class LibraryControllerTest {
     @Test
     public void getBooksShouldBeCalled1Time() {
         this.libraryController.getBooksString();
-        verify(this.mockedBooksRepository, times(1)).getAvailableBooks();
+        verify(this.mockedBooksRepository, times(1)).getAvailableList();
     }
 
     @Test
@@ -80,65 +80,65 @@ public class LibraryControllerTest {
 //    }
 
     @Test
-    public void checkoutBookShouldReturnTrueIfTheBookIsAvailableToBeChecked() throws BookNotFoundException {
+    public void checkoutBookShouldReturnTrueIfTheBookIsAvailableToBeChecked() throws NotFoundException {
         int bookId = 1;
         Book book = new Book(1, "Book 1", "Author 1", 1992);
 
-        when(this.mockedBooksRepository.getBookById(eq(bookId))).thenReturn(book);
+        when(this.mockedBooksRepository.find(eq(bookId))).thenReturn(book);
         assertTrue(this.libraryController.checkoutBook(bookId));
     }
 
     @Test
-    public void checkoutBookShouldReturnFalseIfTheBookIsNotAvailable() throws BookNotFoundException {
+    public void checkoutBookShouldReturnFalseIfTheBookIsNotAvailable() throws NotFoundException {
         int bookId = 1;
         Book book = new Book(1, "Book 1", "Author 1", 1992, true);
 
-        when(this.mockedBooksRepository.getBookById(eq(bookId))).thenReturn(book);
+        when(this.mockedBooksRepository.find(eq(bookId))).thenReturn(book);
         assertFalse(this.libraryController.checkoutBook(bookId));
     }
 
     @Test
-    public void checkoutBookShouldReturnFalseIfTheBookDoesNotExist() throws BookNotFoundException {
+    public void checkoutBookShouldReturnFalseIfTheBookDoesNotExist() throws NotFoundException {
         int bookId = 2;
 
-        when(this.mockedBooksRepository.getBookById(eq(bookId))).thenThrow(BookNotFoundException.class);
+        when(this.mockedBooksRepository.find(eq(bookId))).thenThrow(NotFoundException.class);
         assertFalse(this.libraryController.checkoutBook(bookId));
     }
 
     @Test
-    public void checkinBookShouldReturnABook() throws BookNotFoundException {
+    public void checkinBookShouldReturnABook() throws NotFoundException {
         int bookId = 3;
         Book book = new Book(3, "Book 3", "Author 3", 1992, true);
 
-        when(this.mockedBooksRepository.getBookById(eq(bookId))).thenReturn(book);
+        when(this.mockedBooksRepository.find(eq(bookId))).thenReturn(book);
         this.libraryController.checkinBook(bookId);
 
         assertFalse(book.isChecked());
     }
 
     @Test
-    public void checkinWithValidBookIdShouldReturnTrue() throws BookNotFoundException {
+    public void checkinWithValidBookIdShouldReturnTrue() throws NotFoundException {
         int bookId = 3;
         Book book = new Book(3, "Book 3", "Author 3", 1992, true);
 
-        when(this.mockedBooksRepository.getBookById(eq(bookId))).thenReturn(book);
+        when(this.mockedBooksRepository.find(eq(bookId))).thenReturn(book);
         assertTrue(this.libraryController.checkinBook(bookId));
     }
 
     @Test
-    public void checkinWithAlreadyAvailableBookShouldReturnFalse() throws BookNotFoundException {
+    public void checkinWithAlreadyAvailableBookShouldReturnFalse() throws NotFoundException {
         int bookId = 3;
         Book book = new Book(3, "Book 3", "Author 3", 1992, false);
 
-        when(this.mockedBooksRepository.getBookById(eq(bookId))).thenReturn(book);
+        when(this.mockedBooksRepository.find(eq(bookId))).thenReturn(book);
         assertFalse(this.libraryController.checkinBook(bookId));
     }
 
     @Test
-    public void checkinWithInvalidBookIdShouldReturnFalse() throws BookNotFoundException {
+    public void checkinWithInvalidBookIdShouldReturnFalse() throws NotFoundException {
         int bookId = 9;
 
-        when(this.mockedBooksRepository.getBookById(eq(bookId))).thenThrow(BookNotFoundException.class);
+        when(this.mockedBooksRepository.find(eq(bookId))).thenThrow(NotFoundException.class);
         assertFalse(this.libraryController.checkinBook(bookId));
     }
 }
