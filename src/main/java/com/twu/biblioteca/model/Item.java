@@ -2,7 +2,7 @@ package com.twu.biblioteca.model;
 
 import java.util.Objects;
 
-public abstract class Item implements ILibraryItem {
+public abstract class Item implements IItem {
     private int id;
     private boolean checked;
 
