@@ -2,6 +2,8 @@ package com.twu.biblioteca.controller;
 
 import com.twu.biblioteca.exceptions.ExitException;
 import com.twu.biblioteca.exceptions.InvalidOptionException;
+import com.twu.biblioteca.model.Book;
+import com.twu.biblioteca.model.Movie;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,14 +22,17 @@ public class LibraryControllerTest {
     LibraryController libraryController;
 
     @Mock
-    BookController bookController;
+    ItemController<Book> bookController;
+
+    @Mock
+    ItemController<Movie> movieController;
 
     @Mock
     Scanner scanner;
 
     @Before
     public void setup() {
-        this.libraryController = new LibraryController(this.scanner, this.bookController);
+        this.libraryController = new LibraryController(this.scanner, this.bookController, this.movieController);
     }
 
     @Test
@@ -91,4 +96,12 @@ public class LibraryControllerTest {
         Mockito.verify(this.bookController, Mockito.times(1)).checkIn(Mockito.eq(checkInOption));
     }
 
+    @Test
+    public void menuOption4ShouldCallMovieGetString() throws Exception {
+        int option = 4;
+
+        this.libraryController.doAction(option);
+
+        Mockito.verify(this.movieController, Mockito.times(1)).getString();
+    }
 }

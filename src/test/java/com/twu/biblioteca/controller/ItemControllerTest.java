@@ -11,9 +11,9 @@ import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class BookControllerTest {
+public class ItemControllerTest {
     @InjectMocks
-    BookController bookController;
+    ItemController<Item> itemController;
 
     @Mock
     Service<Item> service;
@@ -23,26 +23,26 @@ public class BookControllerTest {
     @Before
     public void setUp(){
         this.id = 0;
-        this.bookController = new BookController(this.service);
+        this.itemController = new ItemController<>(this.service);
     }
 
     @Test
     public void checkOutShouldCallServiceCheckOut() {
-        this.bookController.checkOut(this.id);
+        this.itemController.checkOut(this.id);
 
         Mockito.verify(this.service, Mockito.times(1)).checkOut(Mockito.eq(this.id));
     }
 
     @Test
     public void checkInShouldCallServiceCheckIn() {
-        this.bookController.checkIn(this.id);
+        this.itemController.checkIn(this.id);
 
         Mockito.verify(this.service, Mockito.times(1)).checkIn(Mockito.eq(this.id));
     }
 
     @Test
     public void getStringShouldCallServiceGetItems() {
-        this.bookController.getString();
+        this.itemController.getString();
 
         Mockito.verify(this.service, Mockito.times(1)).getItems();
     }

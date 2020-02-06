@@ -1,10 +1,11 @@
 package com.twu.biblioteca;
 
-import com.twu.biblioteca.controller.BookController;
+import com.twu.biblioteca.controller.ItemController;
 import com.twu.biblioteca.controller.LibraryController;
 import com.twu.biblioteca.exceptions.ExitException;
 import com.twu.biblioteca.exceptions.InvalidOptionException;
 import com.twu.biblioteca.model.Book;
+import com.twu.biblioteca.model.Movie;
 import com.twu.biblioteca.repository.Repository;
 import com.twu.biblioteca.services.Service;
 
@@ -25,11 +26,21 @@ public class BibliotecaApp {
 
         Repository<Book> bookRepository = new Repository<>(books);
         Service<Book> bookService = new Service<>(bookRepository);
-        BookController bookController = new BookController(bookService);
+        ItemController<Book> bookController = new ItemController<>(bookService);
+
+
+        List<Movie> movies = new ArrayList<>();
+        movies.add(new Movie(1, "Title 1", "Director 1", 2020, 10.0));
+        movies.add(new Movie(2, "Title 2", "Director 1", 2010, 6.0));
+        movies.add(new Movie(3, "Title 3", "Director 2", 1998, 8.7));
+
+        Repository<Movie> moviesRepository = new Repository<>(movies);
+        Service<Movie> movieService = new Service<>(moviesRepository);
+        ItemController<Movie> movieController = new ItemController<>(movieService);
 
         Scanner scanner = new Scanner(System.in);
 
-        LibraryController libraryController = new LibraryController(scanner, bookController);
+        LibraryController libraryController = new LibraryController(scanner, bookController, movieController);
 
         libraryController.printMenu();
 
