@@ -4,8 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
 
 public class BookTest {
     Book book;
@@ -17,24 +15,10 @@ public class BookTest {
 
     @Test
     public void bookStringShouldBeCorrect() {
-        String bookString = "(1) Book:\tBook\tAuthor:\tAuthor\tPublished at:\t2020";
-        assertEquals(this.book.toString(), bookString);
-    }
+        String bookStringExpected = "(1) Book:\tBook\tAuthor:\tAuthor\tPublished at:\t2020";
 
-    @Test
-    public void bookShouldInitWithCheckedFalse() {
-        assertFalse(this.book.isChecked());
-    }
+        String bookStringAtual = this.book.toString();
 
-    @Test
-    public void bookShouldBeChecked() {
-        this.book.checkout();
-        assertTrue(this.book.isChecked());
-    }
-
-    @Test
-    public void bookShouldBeReturned() {
-        this.book.checkin();
-        assertFalse(this.book.isChecked());
+        assertEquals(bookStringExpected, bookStringAtual);
     }
 }

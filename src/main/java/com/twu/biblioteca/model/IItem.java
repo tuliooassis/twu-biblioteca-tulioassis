@@ -1,7 +1,7 @@
 package com.twu.biblioteca.model;
 
 public interface IItem {
-    void checkout();
-    void checkin();
+    void checkOut();
+    void checkIn();
     boolean isChecked();
 }

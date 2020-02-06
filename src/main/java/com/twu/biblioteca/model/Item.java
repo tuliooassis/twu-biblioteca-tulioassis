@@ -2,7 +2,7 @@ package com.twu.biblioteca.model;
 
 import java.util.Objects;
 
-public abstract class Item implements IItem {
+public class Item implements IItem {
     private int id;
     private boolean checked;
 
@@ -19,10 +19,10 @@ public abstract class Item implements IItem {
     public int getId() {
         return this.id;
     }
-    public void checkout() {
+    public void checkOut() {
         this.checked = true;
     }
-    public void checkin() {
+    public void checkIn() {
         this.checked = false;
     }
 

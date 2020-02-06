@@ -1,9 +1,9 @@
 package com.twu.biblioteca.repository;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface IRepository<T> {
-    ArrayList<T> getAll();
-    ArrayList<T> getAvailableList();
+    List<T> getAll();
+    List<T> getAvailableList();
     T find(int id) throws Exception;
 }
