@@ -1,7 +1,7 @@
-package com.twu.biblioteca.repository;
+package com.twu.biblioteca.item.repository;
 
-import com.twu.biblioteca.exceptions.NotFoundException;
-import com.twu.biblioteca.model.Item;
+import com.twu.biblioteca.item.exceptions.NotFoundException;
+import com.twu.biblioteca.item.model.Item;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -1,8 +1,7 @@
-package com.twu.biblioteca.controller;
+package com.twu.biblioteca.item.controller;
 
-import com.twu.biblioteca.model.Book;
-import com.twu.biblioteca.model.Item;
-import com.twu.biblioteca.services.Service;
+import com.twu.biblioteca.item.model.Item;
+import com.twu.biblioteca.item.services.Service;
 
 import java.util.ArrayList;
 

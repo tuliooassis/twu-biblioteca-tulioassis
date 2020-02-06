@@ -1,7 +1,7 @@
-package com.twu.biblioteca.controller;
+package com.twu.biblioteca.item.controller;
 
-import com.twu.biblioteca.model.Item;
-import com.twu.biblioteca.services.Service;
+import com.twu.biblioteca.item.model.Item;
+import com.twu.biblioteca.item.services.Service;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

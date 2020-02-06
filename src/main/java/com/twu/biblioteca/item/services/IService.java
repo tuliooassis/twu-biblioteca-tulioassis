@@ -1,4 +1,4 @@
-package com.twu.biblioteca.services;
+package com.twu.biblioteca.item.services;
 
 import java.util.List;
 

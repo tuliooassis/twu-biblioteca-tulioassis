@@ -1,13 +1,12 @@
 package com.twu.biblioteca;
 
-import com.twu.biblioteca.controller.ItemController;
-import com.twu.biblioteca.controller.LibraryController;
-import com.twu.biblioteca.exceptions.ExitException;
-import com.twu.biblioteca.exceptions.InvalidOptionException;
-import com.twu.biblioteca.model.Book;
-import com.twu.biblioteca.model.Movie;
-import com.twu.biblioteca.repository.Repository;
-import com.twu.biblioteca.services.Service;
+import com.twu.biblioteca.item.controller.ItemController;
+import com.twu.biblioteca.item.exceptions.ExitException;
+import com.twu.biblioteca.item.exceptions.InvalidOptionException;
+import com.twu.biblioteca.item.model.Book;
+import com.twu.biblioteca.item.model.Movie;
+import com.twu.biblioteca.item.repository.Repository;
+import com.twu.biblioteca.item.services.Service;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -38,17 +37,18 @@ public class BibliotecaApp {
         Service<Movie> movieService = new Service<>(moviesRepository);
         ItemController<Movie> movieController = new ItemController<>(movieService);
 
+
         Scanner scanner = new Scanner(System.in);
 
-        LibraryController libraryController = new LibraryController(scanner, bookController, movieController);
+        LibraryManager libraryManager = new LibraryManager(scanner, bookController, movieController);
 
-        libraryController.printMenu();
+        libraryManager.printMenu();
 
         while(scanner.hasNext()){
             try {
-                libraryController.doAction(scanner.nextInt());
+                libraryManager.doAction(scanner.nextInt());
 
-                libraryController.printMenu();
+                libraryManager.printMenu();
             }
             catch (ExitException ex) {
                 System.exit(0);

@@ -1,13 +1,14 @@
-package com.twu.biblioteca.controller;
+package com.twu.biblioteca;
 
-import com.twu.biblioteca.exceptions.ExitException;
-import com.twu.biblioteca.exceptions.InvalidOptionException;
-import com.twu.biblioteca.model.Book;
-import com.twu.biblioteca.model.Movie;
+import com.twu.biblioteca.item.controller.ItemController;
+import com.twu.biblioteca.item.exceptions.ExitException;
+import com.twu.biblioteca.item.exceptions.InvalidOptionException;
+import com.twu.biblioteca.item.model.Book;
+import com.twu.biblioteca.item.model.Movie;
 
 import java.util.Scanner;
 
-public class LibraryController {
+public class LibraryManager {
     private static final String welcomeMessage = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
 
     private ItemController<Book> bookController;
@@ -15,7 +16,7 @@ public class LibraryController {
 
     public Scanner scanner;
 
-    public LibraryController(Scanner scanner, ItemController<Book> bookController, ItemController<Movie> movieController) {
+    public LibraryManager(Scanner scanner, ItemController<Book> bookController, ItemController<Movie> movieController) {
         this.bookController = bookController;
         this.movieController = movieController;
         this.scanner = scanner;
