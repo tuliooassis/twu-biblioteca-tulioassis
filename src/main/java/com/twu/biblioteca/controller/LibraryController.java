@@ -34,6 +34,7 @@ public class LibraryController {
 
         System.out.println("* MOVIES *");
         System.out.println("(4) List of movies");
+        System.out.println("(5) Checkout a movie");
 
         System.out.println("(9) Exit");
     }
@@ -67,6 +68,16 @@ public class LibraryController {
                 break;
             case 4:
                 System.out.println(this.movieController.getString());
+                break;
+            case 5:
+                System.out.println("Enter one movie code to checkout: ");
+                success = this.movieController.checkOut(this.scanner.nextInt());
+
+                if (success) {
+                    System.out.println("Thank you! Enjoy the movie!");
+                } else {
+                    System.out.println("Sorry, that movie is not available.");
+                }
                 break;
             case 9:
                 throw new ExitException();
