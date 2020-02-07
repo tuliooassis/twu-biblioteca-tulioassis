@@ -1,5 +1,9 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.account.controller.AccountController;
+import com.twu.biblioteca.account.model.User;
+import com.twu.biblioteca.account.repository.UserRepository;
+import com.twu.biblioteca.account.services.AccountService;
 import com.twu.biblioteca.item.controller.ItemController;
 import com.twu.biblioteca.item.exceptions.ExitException;
 import com.twu.biblioteca.item.exceptions.InvalidOptionException;
@@ -40,8 +44,29 @@ public class BibliotecaApp {
 
         Scanner scanner = new Scanner(System.in);
 
-        LibraryManager libraryManager = new LibraryManager(scanner, bookController, movieController);
 
+        UserRepository userRepository = new UserRepository();
+        AccountService accountService = new AccountService(userRepository);
+        AccountController accountController = new AccountController(accountService);
+
+        System.out.println("LOGIN");
+        boolean logged = false;
+        String libraryNumber;
+        String password;
+
+        while(!logged) {
+            System.out.println("Library Number: ");
+            libraryNumber = scanner.nextLine();
+            System.out.println("Password: ");
+            password = scanner.nextLine();
+
+            logged = accountController.login(libraryNumber, password);
+
+            if (!logged)
+                System.out.println("Wrong credentials, please try again.\n");
+        }
+
+        LibraryManager libraryManager = new LibraryManager(scanner, bookController, movieController);
         libraryManager.printMenu();
 
         while(scanner.hasNext()){
