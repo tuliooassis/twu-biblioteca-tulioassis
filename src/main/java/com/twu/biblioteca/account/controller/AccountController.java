@@ -22,6 +22,10 @@ public class AccountController {
         }
     }
 
+    public void logout() {
+        this.loggedUser = null;
+    }
+
     public User getLoggedUser(){
         return loggedUser;
     }

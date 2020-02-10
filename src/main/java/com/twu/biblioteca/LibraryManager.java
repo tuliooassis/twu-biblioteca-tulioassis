@@ -1,5 +1,8 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.account.controller.AccountController;
+import com.twu.biblioteca.account.repository.UserRepository;
+import com.twu.biblioteca.account.services.AccountService;
 import com.twu.biblioteca.item.controller.ItemController;
 import com.twu.biblioteca.item.exceptions.ExitException;
 import com.twu.biblioteca.item.exceptions.InvalidOptionException;
@@ -14,12 +17,18 @@ public class LibraryManager {
     private ItemController<Book> bookController;
     private ItemController<Movie> movieController;
 
+    private AccountController accountController;
+
     public Scanner scanner;
 
     public LibraryManager(Scanner scanner, ItemController<Book> bookController, ItemController<Movie> movieController) {
         this.bookController = bookController;
         this.movieController = movieController;
         this.scanner = scanner;
+
+        UserRepository userRepository = new UserRepository();
+        AccountService accountService = new AccountService(userRepository);
+        this.accountController = new AccountController(accountService);
     }
 
     public String getWelcomeMessage() {
@@ -28,6 +37,16 @@ public class LibraryManager {
 
     public void printMenu() {
         System.out.println("\n\n------ MENU ------");
+
+        if (this.accountController.getLoggedUser() != null)
+            printLoggedMenu();
+        else
+            System.out.println("(0) Login");
+
+        System.out.println("(9) Exit");
+    }
+
+    private void printLoggedMenu() {
         System.out.println("* BOOKS *");
         System.out.println("(1) List of books");
         System.out.println("(2) Checkout a book");
@@ -37,13 +56,30 @@ public class LibraryManager {
         System.out.println("(4) List of movies");
         System.out.println("(5) Checkout a movie");
 
-        System.out.println("(9) Exit");
+        System.out.println("(8) Logout");
     }
 
     public void doAction(int option) throws InvalidOptionException, ExitException {
         boolean success;
 
         switch (option) {
+            case 0:
+                boolean logged;
+                String libraryNumber;
+                String password;
+                scanner.nextLine();
+                System.out.println("Library Number: ");
+                libraryNumber = scanner.nextLine();
+                System.out.println("Password: ");
+                password = scanner.nextLine();
+
+                logged = accountController.login(libraryNumber, password);
+
+                if (!logged)
+                    System.out.println("Wrong credentials, please try again.\n");
+                else
+                    System.out.println("Everything right!\n");
+                break;
             case 1:
                 System.out.println(this.bookController.getString());
                 break;
@@ -79,6 +115,10 @@ public class LibraryManager {
                 } else {
                     System.out.println("Sorry, that movie is not available.");
                 }
+                break;
+            case 8:
+                this.accountController.logout();
+                System.out.println("Success!\n");
                 break;
             case 9:
                 throw new ExitException();

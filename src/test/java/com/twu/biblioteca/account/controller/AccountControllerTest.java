@@ -5,7 +5,6 @@ import com.twu.biblioteca.account.model.User;
 import com.twu.biblioteca.account.services.AccountService;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.experimental.theories.suppliers.TestedOn;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -63,5 +62,14 @@ public class AccountControllerTest {
         User loggedUser = this.accountController.getLoggedUser();
 
         assertEquals(user, loggedUser);
+    }
+
+    @Test
+    public void logoutShouldSetUserAsNull() {
+        this.accountController.logout();
+
+        User loggedUser = this.accountController.getLoggedUser();
+
+        assertEquals(null, loggedUser);
     }
 }
