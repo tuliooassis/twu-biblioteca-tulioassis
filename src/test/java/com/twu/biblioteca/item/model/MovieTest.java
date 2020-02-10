@@ -1,5 +1,6 @@
 package com.twu.biblioteca.item.model;
 
+import com.twu.biblioteca.account.model.User;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,4 +23,13 @@ public class MovieTest {
         assertEquals(movieStringExpected, movieStringAtual);
     }
 
+    @Test
+    public void checkedMovieStringShouldHasWhoCheckedThisMovie() {
+        String bookStringExpected = "(1) Title:\tTitle 1\tDirector:\tDirector 1\tYear:\t2020\tRate:\t10.0\tChecked by:\t111-1111";
+
+        this.movie.checkOut(new User("111-1111", "pass"));
+        String bookStringAtual = this.movie.toString();
+
+        assertEquals(bookStringExpected, bookStringAtual);
+    }
 }

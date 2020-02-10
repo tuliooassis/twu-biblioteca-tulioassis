@@ -1,5 +1,6 @@
 package com.twu.biblioteca.item.services;
 
+import com.twu.biblioteca.account.controller.AccountController;
 import com.twu.biblioteca.item.exceptions.NotFoundException;
 import com.twu.biblioteca.item.model.Item;
 import com.twu.biblioteca.item.repository.Repository;
@@ -23,11 +24,14 @@ public class ServiceTest {
     @Mock
     Repository<Item> repository;
 
+    @Mock
+    AccountController accountController;
+
     int id;
 
     @Before
     public void setUp() {
-        this.service = new Service<>(this.repository);
+        this.service = new Service<>(this.repository, this.accountController);
         this.id = 0;
     }
 

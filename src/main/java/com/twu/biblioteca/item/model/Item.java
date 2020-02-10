@@ -1,29 +1,33 @@
 package com.twu.biblioteca.item.model;
 
+import com.twu.biblioteca.account.model.User;
+
 import java.util.Objects;
 
 public class Item implements IItem {
     private int id;
     private boolean checked;
+    private User userChecked;
 
     public Item(int id){
         this.id = id;
         this.checked = false;
     }
 
-    public Item(int id, boolean checked){
-        this.id = id;
-        this.checked = checked;
-    }
-
     public int getId() {
         return this.id;
     }
-    public void checkOut() {
+    public void checkOut(User user) {
+        this.userChecked = user;
         this.checked = true;
     }
     public void checkIn() {
+        this.userChecked = null;
         this.checked = false;
+    }
+
+    public String getUserNumber() {
+        return this.userChecked.getLibraryNumber();
     }
 
     public boolean isChecked() {

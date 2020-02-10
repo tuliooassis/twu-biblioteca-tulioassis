@@ -1,8 +1,6 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.account.controller.AccountController;
-import com.twu.biblioteca.account.repository.UserRepository;
-import com.twu.biblioteca.account.services.AccountService;
 import com.twu.biblioteca.item.controller.ItemController;
 import com.twu.biblioteca.item.exceptions.ExitException;
 import com.twu.biblioteca.item.exceptions.InvalidOptionException;
@@ -21,14 +19,11 @@ public class LibraryManager {
 
     public Scanner scanner;
 
-    public LibraryManager(Scanner scanner, ItemController<Book> bookController, ItemController<Movie> movieController) {
+    public LibraryManager(Scanner scanner, ItemController<Book> bookController, ItemController<Movie> movieController, AccountController accountController) {
         this.bookController = bookController;
         this.movieController = movieController;
         this.scanner = scanner;
-
-        UserRepository userRepository = new UserRepository();
-        AccountService accountService = new AccountService(userRepository);
-        this.accountController = new AccountController(accountService);
+        this.accountController = accountController;
     }
 
     public String getWelcomeMessage() {

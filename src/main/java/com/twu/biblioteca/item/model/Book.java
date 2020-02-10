@@ -14,18 +14,17 @@ public class Book extends Item {
         this.publishedYear = publishedYear;
     }
 
-    public Book(int id, String name, String author, int publishedYear, boolean checked) {
-        super(id, checked);
-        this.name = name;
-        this.author = author;
-        this.publishedYear = publishedYear;
-    }
-
     @Override
     public String toString() {
-        return "(" + this.getId() + ") Book:\t" + this.name +
+        String details = "(" + this.getId() + ") Book:\t" + this.name +
                 "\tAuthor:\t" + this.author +
                 "\tPublished at:\t" + this.publishedYear;
+
+        if (super.isChecked()) {
+            details += "\tChecked by:\t" + super.getUserNumber();
+        }
+
+        return details;
     }
 
     @Override

@@ -1,5 +1,9 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.account.controller.AccountController;
+import com.twu.biblioteca.account.model.User;
+import com.twu.biblioteca.account.repository.UserRepository;
+import com.twu.biblioteca.account.services.AccountService;
 import com.twu.biblioteca.item.controller.ItemController;
 import com.twu.biblioteca.item.exceptions.ExitException;
 import com.twu.biblioteca.item.exceptions.InvalidOptionException;
@@ -18,13 +22,19 @@ public class BibliotecaApp {
     public static void main(String[] args) {
         final String INVALID_OPTION_MESSAGE = "Please select a valid option!";
 
+        UserRepository userRepository = new UserRepository();
+        AccountService accountService = new AccountService(userRepository);
+        AccountController accountController = new AccountController(accountService);
+
         List<Book> books = new ArrayList<>();
         books.add(new Book(1,"Book 1", "Author 1", 1997));
-        books.add(new Book(3, "Book 3", "Author 2", 2012, true));
+        books.add(new Book(3, "Book 3", "Author 2", 2012));
         books.add(new Book(2,"Book 2", "Author 1", 2000));
 
+        books.get(1).checkOut(new User("111-1111", "pass"));
+
         Repository<Book> bookRepository = new Repository<>(books);
-        Service<Book> bookService = new Service<>(bookRepository);
+        Service<Book> bookService = new Service<>(bookRepository, accountController);
         ItemController<Book> bookController = new ItemController<>(bookService);
 
 
@@ -34,13 +44,13 @@ public class BibliotecaApp {
         movies.add(new Movie(3, "Title 3", "Director 2", 1998, 8.7));
 
         Repository<Movie> moviesRepository = new Repository<>(movies);
-        Service<Movie> movieService = new Service<>(moviesRepository);
+        Service<Movie> movieService = new Service<>(moviesRepository, accountController);
         ItemController<Movie> movieController = new ItemController<>(movieService);
 
 
         Scanner scanner = new Scanner(System.in);
 
-        LibraryManager libraryManager = new LibraryManager(scanner, bookController, movieController);
+        LibraryManager libraryManager = new LibraryManager(scanner, bookController, movieController, accountController);
 
         System.out.println(libraryManager.getWelcomeMessage());
         libraryManager.printMenu();

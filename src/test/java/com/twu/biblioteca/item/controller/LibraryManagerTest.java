@@ -1,5 +1,6 @@
 package com.twu.biblioteca.item.controller;
 
+import com.twu.biblioteca.account.controller.AccountController;
 import com.twu.biblioteca.item.exceptions.ExitException;
 import com.twu.biblioteca.item.exceptions.InvalidOptionException;
 import com.twu.biblioteca.item.model.Book;
@@ -31,9 +32,12 @@ public class LibraryManagerTest {
     @Mock
     Scanner scanner;
 
+    @Mock
+    AccountController accountController;
+
     @Before
     public void setup() {
-        this.libraryManager = new LibraryManager(this.scanner, this.bookController, this.movieController);
+        this.libraryManager = new LibraryManager(this.scanner, this.bookController, this.movieController, this.accountController);
     }
 
     @Test
@@ -104,5 +108,26 @@ public class LibraryManagerTest {
         this.libraryManager.doAction(option);
 
         Mockito.verify(this.movieController, Mockito.times(1)).getString();
+    }
+
+    @Test
+    public void menuOption0ShouldDoLogIn() throws InvalidOptionException, ExitException {
+        int option = 0;
+
+        Mockito.when(this.scanner.nextLine()).thenReturn("\n", "111-1111", "pass");
+        Mockito.when(this.accountController.login(Mockito.eq("111-1111"), Mockito.eq("pass"))).thenReturn(true);
+
+        this.libraryManager.doAction(option);
+
+        Mockito.verify(this.accountController, Mockito.times(1)).login(Mockito.eq("111-1111"), Mockito.eq("pass"));
+    }
+
+    @Test
+    public void menuOption8ShouldDoLogOut() throws InvalidOptionException, ExitException {
+        int option = 8;
+
+        this.libraryManager.doAction(option);
+
+        Mockito.verify(this.accountController, Mockito.times(1)).logout();
     }
 }

@@ -19,10 +19,16 @@ public class Movie extends Item {
 
     @Override
     public String toString() {
-        return "(" + this.getId() + ") Title:\t" + this.title +
+        String details = "(" + this.getId() + ") Title:\t" + this.title +
                 "\tDirector:\t" + this.director +
                 "\tYear:\t" + this.year +
                 "\tRate:\t" + this.rate;
+
+        if (super.isChecked()) {
+            details += "\tChecked by:\t" + super.getUserNumber();
+        }
+
+        return details;
     }
 
     @Override

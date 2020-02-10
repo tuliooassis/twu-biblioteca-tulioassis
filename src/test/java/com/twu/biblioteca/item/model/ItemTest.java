@@ -1,5 +1,6 @@
 package com.twu.biblioteca.item.model;
 
+import com.twu.biblioteca.account.model.User;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -31,7 +32,8 @@ public class ItemTest {
 
     @Test
     public void bookShouldBeChecked() {
-        this.item.checkOut();
+        User user = new User("111-1111", "pass");
+        this.item.checkOut(user);
 
         boolean isChecked = this.item.isChecked();
 
@@ -45,5 +47,25 @@ public class ItemTest {
         boolean isChecked = this.item.isChecked();
 
         assertFalse(isChecked);
+    }
+
+    @Test
+    public void userCheckedShouldBeUpdatedWhenCheckOut() {
+        User user = new User("111-1111", "pass");
+
+        this.item.checkOut(user);
+
+        assertEquals("111-1111", this.item.getUserNumber());
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void userCheckedShouldBeNullWhenCheckIn() {
+        User user = new User("111-1111", "pass");
+
+        this.item.checkOut(user);
+
+        this.item.checkIn();
+
+        assertEquals(null, this.item.getUserNumber());
     }
 }
