@@ -15,7 +15,7 @@ public class UserTest {
     public void setUp() {
         this.number = "111-1111";
         this.password = "pass";
-        this.user = new User(this.number, this.password);
+        this.user = new User(this.number, this.password, "User 1", "user@user", "+99 99 99999999");
     }
 
     @Test
@@ -34,4 +34,12 @@ public class UserTest {
         assertFalse(result);
     }
 
+    @Test
+    public void toStringShouldPrintNameEmailAndPhoneNumber() {
+        String expectedString = "Name\tUser 1\tEmail\tuser@user\tPhone Number\t+99 99 99999999";
+
+        String atualString = this.user.toString();
+
+        assertEquals(expectedString, atualString);
+    }
 }
