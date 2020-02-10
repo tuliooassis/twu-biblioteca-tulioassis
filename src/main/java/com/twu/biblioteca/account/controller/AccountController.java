@@ -29,4 +29,5 @@ public class AccountController {
     public User getLoggedUser(){
         return loggedUser;
     }
+
 }

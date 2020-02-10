@@ -1,6 +1,7 @@
 package com.twu.biblioteca.item.controller;
 
 import com.twu.biblioteca.account.controller.AccountController;
+import com.twu.biblioteca.account.model.User;
 import com.twu.biblioteca.item.exceptions.ExitException;
 import com.twu.biblioteca.item.exceptions.InvalidOptionException;
 import com.twu.biblioteca.item.model.Book;
@@ -129,5 +130,16 @@ public class LibraryManagerTest {
         this.libraryManager.doAction(option);
 
         Mockito.verify(this.accountController, Mockito.times(1)).logout();
+    }
+
+    @Test
+    public void menuOption7ShouldGetLoggedUser() throws InvalidOptionException, ExitException {
+        int option = 7;
+        User user = new User("111-1111", "pass", "User 1", "user@user", "+99 99 99999999");
+
+        Mockito.when(this.accountController.getLoggedUser()).thenReturn(user);
+        this.libraryManager.doAction(option);
+
+        Mockito.verify(this.accountController, Mockito.times(1)).getLoggedUser();
     }
 }

@@ -10,9 +10,9 @@ public class UserRepository {
 
     public UserRepository() {
         this.users = new ArrayList<>();
-        this.users.add(new User("111-1111", "pass"));
-        this.users.add(new User("222-1111", "word"));
-        this.users.add(new User("333-1111", "password"));
+        this.users.add(new User("111-1111", "pass", "User 1", "user1@user", "+5533111111111"));
+        this.users.add(new User("222-1111", "word", "User 2", "user2@user", "+553322222222"));
+        this.users.add(new User("333-1111", "password", "User 3", "user3@user", "+553333333333"));
     }
 
     public User find(String libraryNumber) throws NotFoundException {

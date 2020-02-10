@@ -51,6 +51,7 @@ public class LibraryManager {
         System.out.println("(4) List of movies");
         System.out.println("(5) Checkout a movie");
 
+        System.out.println("\n(7) My information");
         System.out.println("(8) Logout");
     }
 
@@ -110,6 +111,9 @@ public class LibraryManager {
                 } else {
                     System.out.println("Sorry, that movie is not available.");
                 }
+                break;
+            case 7:
+                System.out.println(this.accountController.getLoggedUser().toString());
                 break;
             case 8:
                 this.accountController.logout();
