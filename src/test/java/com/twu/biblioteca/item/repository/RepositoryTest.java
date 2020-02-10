@@ -1,5 +1,6 @@
 package com.twu.biblioteca.item.repository;
 
+import com.twu.biblioteca.account.model.User;
 import com.twu.biblioteca.item.exceptions.NotFoundException;
 import com.twu.biblioteca.item.model.Item;
 import org.junit.Before;
@@ -18,9 +19,11 @@ public class RepositoryTest {
         List<Item> items = new ArrayList<>();
 
         items.add(new Item(1));
-        items.add(new Item(2, true));
+        items.add(new Item(2));
         items.add(new Item(3));
 
+        items.get(1).checkOut(new User("111-1111", "pass"));
+        
         this.repository = new Repository<>(items);
     }
 

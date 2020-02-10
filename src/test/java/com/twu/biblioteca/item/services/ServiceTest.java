@@ -1,6 +1,7 @@
 package com.twu.biblioteca.item.services;
 
 import com.twu.biblioteca.account.controller.AccountController;
+import com.twu.biblioteca.account.model.User;
 import com.twu.biblioteca.item.exceptions.NotFoundException;
 import com.twu.biblioteca.item.model.Item;
 import com.twu.biblioteca.item.repository.Repository;
@@ -27,19 +28,21 @@ public class ServiceTest {
     @Mock
     AccountController accountController;
 
+    Item item;
     int id;
 
     @Before
     public void setUp() {
         this.service = new Service<>(this.repository, this.accountController);
         this.id = 0;
+        this.item = new Item(this.id);
     }
 
     @Test
     public void getItemsShouldGetAvailableList() {
         this.service.getItems();
 
-        Mockito.verify(this.repository, Mockito.times(1)).getAvailableList();
+        Mockito.verify(this.repository, Mockito.times(1)).getAll();
     }
 
     @Test
@@ -53,7 +56,8 @@ public class ServiceTest {
 
     @Test
     public void checkOutShouldReturnFalseWhenItemIsAlreadyChecked() throws NotFoundException {
-        Mockito.when(this.repository.find(Mockito.eq(this.id))).thenReturn(new Item(this.id, true));
+        this.item.checkOut(new User("111-1111", "pass"));
+        Mockito.when(this.repository.find(Mockito.eq(this.id))).thenReturn(this.item);
 
         boolean result = this.service.checkOut(this.id);
 
@@ -71,7 +75,8 @@ public class ServiceTest {
 
     @Test
     public void checkInShouldReturnTrueWhenSuccess() throws NotFoundException {
-        Mockito.when(this.repository.find(Mockito.eq(this.id))).thenReturn(new Item(this.id, true));
+        this.item.checkOut(new User("111-1111", "pass"));
+        Mockito.when(this.repository.find(Mockito.eq(this.id))).thenReturn(this.item);
 
         boolean result = this.service.checkIn(this.id);
 
@@ -80,7 +85,7 @@ public class ServiceTest {
 
     @Test
     public void checkInShouldReturnFalseWhenItemIsNotChecked() throws NotFoundException {
-        Mockito.when(this.repository.find(Mockito.eq(this.id))).thenReturn(new Item(this.id, false));
+        Mockito.when(this.repository.find(Mockito.eq(this.id))).thenReturn(this.item);
 
         boolean result = this.service.checkIn(this.id);
 
